@@ -7,7 +7,7 @@
  * Usando GLUT compilando em MacOS 10.9 usando os includes do Ed. Angel (os mesmos do exemplo)
  */
 
-#include "include/Angel.h"
+#include "Angel.h"
 
 float theta = 0.0;
 float thetaLoc = 0.0;
