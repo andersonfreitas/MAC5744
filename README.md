@@ -1,4 +1,6 @@
 # MAC5744
+#### Introdução à Computação Gráfica
+Prof. Marcel P. Jackowski
 
 ## Aula 1 - 26/02/2014
 
