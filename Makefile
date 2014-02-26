@@ -4,4 +4,4 @@ APPLE_OPTIONS=-Wno-deprecated -Wno-uninitialized
 OPTIONS=$(GCC_OPTIONS) $(GL_OPTIONS) $(APPLE_OPTIONS)
 
 .cpp:
-	g++ $@.cpp include/initShader.cpp $(OPTIONS) -o $@
+	g++ $@.cpp common/InitShader.cpp $(OPTIONS) -o $@
