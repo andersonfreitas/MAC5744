@@ -4,9 +4,7 @@
  *
  * Tradução do programa rotatingSquare1.js para C++
  *
- * Usando GLUT compilando em Mac 10.9 usando os includes do Ed. Angel (os mesmos do exemplo)
- *
- * g++ include/InitShader.cpp rotatingCube.cpp -framework OpenGL -Wno-deprecated -Wno-uninitialized -framework GLUT -o rotatingCube
+ * Usando GLUT compilando em MacOS 10.9 usando os includes do Ed. Angel (os mesmos do exemplo)
  */
 
 #include "include/Angel.h"
