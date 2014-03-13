@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Octaedro em esfera</title>
+
+    <style>
+      body {
+        background-color: #000000;
+        margin: 0px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+
+    <canvas></canvas>
+    <div id="info"></div>
+
+    <script type="text/javascript" src="js/gl-matrix-min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/coffee-script.js"></script>
+
+    <script id="vs" type="x-shader/vertex">
+      attribute vec3 aVertexPosition;
+      attribute vec4 aVertexColor;
+
+      uniform mat4 uMVMatrix;
+      uniform mat4 uPMatrix;
+
+      varying vec4 vColor;
+
+      void main(void) {
+          gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+          vColor = aVertexColor;
+      }
+    </script>
+
+    <script id="fs" type="x-shader/fragment">
+      precision mediump float;
+
+      uniform float time;
+      uniform vec2 resolution;
+
+      varying vec4 vColor;
+
+      void main(void) {
+          gl_FragColor = vColor;
+      }
+    </script>
+
+    <script type="text/javascript" src="js/stats.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
