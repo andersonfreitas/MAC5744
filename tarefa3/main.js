@@ -125,7 +125,6 @@ function initBuffers() {
   linesColorBuffer.itemSize = 3;
   linesColorBuffer.numItems = linesColors.length;
 
-
   circleVertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, circleVertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(circle)), gl.DYNAMIC_DRAW);
@@ -171,13 +170,6 @@ var linesVertexes = [
 
 var circleColorBuffer, circleVertexBuffer;
 
-// LINE_LOOP
-// var circle = [
-//   vec2.fromValues(-1, 0),
-//   vec2.fromValues(0, 1),
-//   vec2.fromValues(1, 0),
-//   vec2.fromValues(0, -1)
-// ];
 var circle_template = [
   vec2.fromValues(-1,  0), vec2.fromValues( 0,  1),
   vec2.fromValues( 0,  1), vec2.fromValues( 1,  0),
