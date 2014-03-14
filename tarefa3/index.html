@@ -57,6 +57,7 @@
     var ConfigProperties = function() {
       this.subdivision = 0;
       this.color = '#f1c40f';
+      this.sphere = false;
       this.drawGrid = true;
     }
     window.onload = function() {
@@ -101,10 +102,17 @@
         }
         updateCircle();
       });
+
+      controller = gui.add(config, 'sphere');
+      controller.onChange(function(value) {
+        drawSphere = value;
+      });
+      gui.add(config, 'rotation');
     };
 
     </script>
 
+    <script type="text/javascript" src="cube.js"></script>
     <script type="text/javascript" src="main.js"></script>
 
 

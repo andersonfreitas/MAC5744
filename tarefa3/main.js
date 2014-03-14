@@ -138,6 +138,8 @@ function initBuffers() {
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(circleColors)), gl.DYNAMIC_DRAW);
   circleColorBuffer.itemSize = 3;
   circleColorBuffer.numItems = circleColors.length;
+
+  initCubeBuffers();
 }
 glMatrix.setMatrixArrayType(Array);
 
@@ -352,7 +354,13 @@ function render() {
   }
 
   if (drawSphere) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, cubeVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
+    gl.bindBuffer(gl.ARRAY_BUFFER, cubeColorBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexColorAttribute, cubeColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.drawArrays(gl.TRIANGLES, 0, cubeVertexBuffer.numItems);
   }
 }
 
