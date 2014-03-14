@@ -15,18 +15,18 @@ window.requestAnimationFrame = window.requestAnimationFrame || ( function() {
 })();
 
 
-var canvas,
-    gl,
-    buffer,
-    vertex_shader, fragment_shader,
-    currentProgram,
-    vertex_position,
-    stats,
-    parameters = {  start_time  : new Date().getTime(),
+var canvas;
+var gl;
+var buffer;
+var vertex_shader;
+var fragment_shader;
+var currentProgram;
+var vertex_position;
+var stats;
+var parameters = {  start_time  : new Date().getTime(),
                     time        : 0,
                     screenWidth : 0,
                     screenHeight: 0 };
-
 
 var triangle1VertexPositionBuffer;
 var triangle1VertexColorBuffer;
@@ -57,11 +57,9 @@ function setMatrixUniforms() {
 
 
 function degToRad(degrees) {
-    return degrees * Math.PI / 180;
+  return degrees * Math.PI / 180;
 }
 
-init();
-animate();
 
 function init() {
   vertex_shader = document.getElementById('vs').textContent;
@@ -220,6 +218,8 @@ function onWindowResize( event ) {
 
 var lastTime = 0;
 
+var rTri = 0;
+
 function updateAnimation() {
   var timeNow = new Date().getTime();
   if (lastTime != 0) {
@@ -237,7 +237,6 @@ function animate() {
   updateAnimation();
   stats.end();
 }
-var rTri = 0;
 
 function render() {
 
@@ -290,3 +289,6 @@ function render() {
   gl.drawArrays(gl.TRIANGLES, 0, triangle2VertexPositionBuffer.numItems);
   mvPopMatrix();
 }
+
+init();
+animate();
