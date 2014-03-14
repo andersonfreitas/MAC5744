@@ -124,6 +124,7 @@
             c = cube_template[i+2];
             divideTriangle(a, b, c, newLevel);
           }
+          cube = _.flatten(cube);
           updateCube();
         }
       });
