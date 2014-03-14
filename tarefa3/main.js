@@ -213,24 +213,19 @@ function map(value, start1, stop1, start2, stop2) {
   return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
 }
 
-function mix( u, v, s )
-{
-    if ( typeof s !== "number" ) {
-        throw "mix: the last paramter " + s + " must be a number";
-    }
-
-    if ( u.length != v.length ) {
-        throw "vector dimension mismatch";
-    }
-
-    var result = [];
-    for ( var i = 0; i < u.length; ++i ) {
-        result.push( s * u[i] + (1.0 - s) * v[i] );
-    }
-
-    return result;
+function mix( u, v, s ) {
+  if ( typeof s !== "number" ) {
+    throw "mix: the last paramter " + s + " must be a number";
+  }
+  if ( u.length != v.length ) {
+    throw "vector dimension mismatch";
+  }
+  var result = [];
+  for ( var i = 0; i < u.length; ++i ) {
+    result.push( s * u[i] + (1.0 - s) * v[i] );
+  }
+  return result;
 }
-
 
 var linesColors = [];
 var circleColors = [];
