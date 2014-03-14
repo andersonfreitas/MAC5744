@@ -309,6 +309,7 @@ function animate() {
 }
 
 var drawGrid = true;
+var drawSphere = false;
 
 function render() {
 
@@ -326,27 +327,33 @@ function render() {
   gl.uniform1f(gl.getUniformLocation(currentProgram, 'time'), parameters.time / 1000);
   gl.uniform2f(gl.getUniformLocation(currentProgram, 'resolution'), parameters.screenWidth, parameters.screenHeight);
 
+  mat4.translate(mvMatrix, mvMatrix, vec3.fromValues(0, 0, -3));
+  setMatrixUniforms();
   if (drawGrid) {
     gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
     gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, linesVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, linesColorBuffer);
     gl.vertexAttribPointer(currentProgram.vertexColorAttribute, linesColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.lineWidth(1);
+    gl.drawArrays(gl.LINES, 0, linesVertexBuffer.numItems);
   }
-  mat4.translate(mvMatrix, mvMatrix, vec3.fromValues(0, 0, -3));
-  setMatrixUniforms();
-  gl.lineWidth(1);
-  gl.drawArrays(gl.LINES, 0, linesVertexBuffer.numItems);
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, circleVertexBuffer);
-  gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, circleVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+  if (!drawSphere) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, circleVertexBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, circleVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, circleColorBuffer);
-  gl.vertexAttribPointer(currentProgram.vertexColorAttribute, circleColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, circleColorBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexColorAttribute, circleColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-  gl.lineWidth(3);
-  gl.drawArrays(gl.LINES, 0, circleVertexBuffer.numItems);
+    gl.lineWidth(3);
+    gl.drawArrays(gl.LINES, 0, circleVertexBuffer.numItems);
+  }
 
+  if (drawSphere) {
+
+  }
 }
 
 init();
