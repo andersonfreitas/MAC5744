@@ -98,6 +98,9 @@ var triangle2VertexColorBuffer;
 var lastTime = 0;
 var rTri = 0;
 var linesVertexBuffer, linesColorBuffer;
+var u_DiffuseLight;
+var u_LightDirection;
+var u_AmbientLight;
 
 function initShaderVars() {
   currentProgram.vertexPositionAttribute = gl.getAttribLocation(currentProgram, "aVertexPosition");
@@ -108,6 +111,18 @@ function initShaderVars() {
 
   currentProgram.pMatrixUniform = gl.getUniformLocation(currentProgram, "uPMatrix");
   currentProgram.mvMatrixUniform = gl.getUniformLocation(currentProgram, "uMVMatrix");
+
+  currentProgram.u_DiffuseLight = gl.getUniformLocation(currentProgram, 'u_DiffuseLight');
+  currentProgram.u_LightDirection = gl.getUniformLocation(currentProgram, 'u_LightDirection');
+  currentProgram.u_AmbientLight = gl.getUniformLocation(currentProgram, 'u_AmbientLight');
+
+  gl.uniform3f(u_DiffuseLight, 1.0, 1.0, 1.0);
+  var lightDirection = vec3.fromValues(0.5, 3.0, 4.0);
+  vec3.normalize(lightDirection, lightDirection)
+
+  gl.uniform3fv(u_LightDirection, _.flatten(lightDirection));
+
+  gl.uniform3f(u_AmbientLight, 0.2, 0.2, 0.2);
 }
 
 function initBuffers() {
