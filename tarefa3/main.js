@@ -308,6 +308,8 @@ function animate() {
   stats.end();
 }
 
+var drawGrid = true;
+
 function render() {
 
   if ( !currentProgram ) return;
@@ -324,12 +326,13 @@ function render() {
   gl.uniform1f(gl.getUniformLocation(currentProgram, 'time'), parameters.time / 1000);
   gl.uniform2f(gl.getUniformLocation(currentProgram, 'resolution'), parameters.screenWidth, parameters.screenHeight);
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
-  gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, linesVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+  if (drawGrid) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, linesVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, linesColorBuffer);
-  gl.vertexAttribPointer(currentProgram.vertexColorAttribute, linesColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
+    gl.bindBuffer(gl.ARRAY_BUFFER, linesColorBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexColorAttribute, linesColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+  }
   mat4.translate(mvMatrix, mvMatrix, vec3.fromValues(0, 0, -3));
   setMatrixUniforms();
   gl.lineWidth(1);
