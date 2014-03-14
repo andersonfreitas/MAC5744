@@ -203,11 +203,8 @@ function subdivide(a, b, count) {
     addVertex(a, b);
   else {
     var c = mix(a, b, 0.5);
-    var theta = Math.atan(c[1]/c[0]);
-    var signum = ((c[0] > 0) - (c[0] < 0));
 
-    c[0] = Math.cos(theta) * signum;
-    c[1] = Math.sin(theta) * signum;
+    vec2.normalize(c, c);
 
     --count;
     subdivide(a, c, count);
