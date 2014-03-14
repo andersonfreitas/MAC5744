@@ -44,6 +44,7 @@
         vec3 ambient = u_AmbientLight * aVertexColor.rgb;
         vColor = vec4(diffuse + ambient, aVertexColor.a);
 
+        vColor = aVertexColor;
       }
     </script>
 
@@ -69,7 +70,7 @@
       this.rotation = true;
       this.sphere = false;
       this.drawGrid = true;
-      this.wireframe = false;
+      this.wireframe = true;
     }
     window.onload = function() {
 
@@ -94,7 +95,10 @@
       controller.onChange(function(newColor) {
         color = hexToRgb(newColor);
         lineColor = vec3.fromValues(color.r, color.g, color.b);
-        updateCircle();
+        if (!drawSphere)
+          updateCircle();
+        else
+          updateCube();
       });
 
       controller = gui.add(config, 'drawGrid');
@@ -104,13 +108,24 @@
 
       controller = gui.add(config, 'subdivision', 0, 5).step(1);
       controller.onFinishChange(function(newLevel) {
-        circle = [];
-        for (var i = 0; i < circle_template.length; i+=2) {
-          a = circle_template[i];
-          b = circle_template[i+1];
-          subdivide(a, b, newLevel);
+        if (!drawSphere) {
+          circle = [];
+          for (var i = 0; i < circle_template.length; i+=2) {
+            a = circle_template[i];
+            b = circle_template[i+1];
+            subdivide(a, b, newLevel);
+          }
+          updateCircle();
+        } else {
+          cube = [];
+          for (var i = 0; i < cube_template.length; i+=3) {
+            a = cube_template[i];
+            b = cube_template[i+1];
+            c = cube_template[i+2];
+            divideTriangle(a, b, c, newLevel);
+          }
+          updateCube();
         }
-        updateCircle();
       });
 
       controller = gui.add(config, 'sphere');
@@ -119,6 +134,7 @@
       });
       controller = gui.add(config, 'rotation');
       controller.onChange(function(value) {
+        rTri = 0;
         rotation = value;
       });
       controller = gui.add(config, 'wireframe');
