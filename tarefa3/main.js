@@ -187,6 +187,17 @@ function initBuffers() {
 }
 glMatrix.setMatrixArrayType(Array);
 
+function updateCircle() {
+  gl.bindBuffer(gl.ARRAY_BUFFER, circleVertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(circle)), gl.DYNAMIC_DRAW);
+  circleVertexBuffer.numItems = circle.length;
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, circleColorBuffer);
+  for (i = 0; i< circle.length; i++) circleColors.push(vec3.fromValues(1,0,1));
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(circleColors)), gl.DYNAMIC_DRAW);
+  circleColorBuffer.numItems = circleColors.length;
+}
+
 var linesVertexes = [
   vec2.fromValues(-1, 0),
   vec2.fromValues(1, 0),
@@ -244,7 +255,7 @@ function addVertex(a, b) {
 for (var i = 0; i < circle_template.length; i+=2) {
   a = circle_template[i];
   b = circle_template[i+1];
-  subdivide(a, b, 4);
+  subdivide(a, b, 0);
 }
 
 function mix( u, v, s )

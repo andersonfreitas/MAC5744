@@ -21,6 +21,7 @@
     <script type="text/javascript" src="js/gl-matrix-min.js"></script>
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/coffee-script.js"></script>
+    <script type="text/javascript" src="js/dat.gui.min.js"></script>
 
     <script id="vs" type="x-shader/vertex">
       attribute vec3 aVertexPosition;
@@ -51,6 +52,30 @@
     </script>
 
     <script type="text/javascript" src="js/stats.min.js"></script>
+
+    <script type="text/javascript">
+    var ConfigProperties = function() {
+      this.subdivision = 0;
+    }
+    window.onload = function() {
+      var config = new ConfigProperties();
+      var gui = new dat.GUI();
+      controller = gui.add(config, 'subdivision', 0, 5).step(1);
+      controller.onFinishChange(function(newLevel) {
+        circle = [];
+        for (var i = 0; i < circle_template.length; i+=2) {
+          a = circle_template[i];
+          b = circle_template[i+1];
+          subdivide(a, b, newLevel);
+        }
+        updateCircle();
+      });
+    };
+
+    </script>
+
     <script type="text/javascript" src="main.js"></script>
+
+
   </body>
 </html>
