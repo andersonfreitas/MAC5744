@@ -2,25 +2,30 @@ glMatrix.setMatrixArrayType(Array);
 
 var cube_template = [
   // frente cima
-  vec3.fromValues(-1,  0, 0), vec3.fromValues( 0,  1, 0), vec3.fromValues( 0,  0, -1),
-  vec3.fromValues( 0,  1, 0), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  0, -1),
+  vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  1,  0), vec3.fromValues( 0,  0, -1),
+  vec3.fromValues( 0,  0, -1), vec3.fromValues( 0,  1, 0), vec3.fromValues(-1,  0,  0),
 
-  // frente baixo
-  vec3.fromValues(-1,  0, 0), vec3.fromValues( 0, -1, 0), vec3.fromValues( 0,  0, -1),
-  vec3.fromValues( 0, -1, 0), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  0, -1),
+  // // frente baixo
+  vec3.fromValues(-1,  0,  0), vec3.fromValues( 0,  0, -1), vec3.fromValues( 0, -1, 0),
+  vec3.fromValues( 0, -1, 0),  vec3.fromValues( 0,  0, -1), vec3.fromValues( 1,  0,  0),
 
-  // traseira cima
+  // // traseira cima
+  vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  1, 0), vec3.fromValues( 0,  0,  1),
   vec3.fromValues(-1,  0, 0), vec3.fromValues( 0,  1, 0), vec3.fromValues( 0,  0,  1),
-  vec3.fromValues( 0,  1, 0), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  0,  1),
 
-  // traseira baixo
-  vec3.fromValues(-1,  0, 0), vec3.fromValues( 0, -1, 0), vec3.fromValues( 0,  0,  1),
-  vec3.fromValues( 0, -1, 0), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  0,  1)
+  // // traseira baixo
+  vec3.fromValues( 0,  0, 1), vec3.fromValues(-1,  0, 0), vec3.fromValues( 0, -1, 0),
+  vec3.fromValues( 0,  0, 1), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0, -1, 0)
 ];
 
 var cubeVertexBuffer, cubeColorBuffer;
-var cube = _.flatten(cube_template);
+var cube = []; // _.flatten(cube_template);
 var cubeColors = [];
+
+for (var i = 0; i < cube_template.length; i += 3) {
+  triangle(cube_template[i+0], cube_template[i+1], cube_template[i+2]);
+}
+cube = _.flatten(cube);
 
 var rotation = true, wireframe = true;
 
@@ -54,7 +59,9 @@ function updateCube() {
 }
 
 function triangle(a, b, c) {
-  cube.push(a, b, c);
+  cube.push(a, b);
+  cube.push(b, c);
+  cube.push(c, a);
 }
 
 function divideTriangle(a, b, c, count) {
