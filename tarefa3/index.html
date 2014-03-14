@@ -82,7 +82,6 @@
       controller = gui.addColor(config, 'color');
       controller.onChange(function(newColor) {
         color = hexToRgb(newColor);
-        console.log(color);
         lineColor = vec3.fromValues(color.r, color.g, color.b);
         updateCircle();
       });
