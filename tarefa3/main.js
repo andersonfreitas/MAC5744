@@ -111,51 +111,6 @@ function initShaderVars() {
 }
 
 function initBuffers() {
-  var vertices = [
-       0.0,  0.866,  0.0,
-      -1.0,   -1.0,  0.0,
-       1.0,   -1.0,  0.0
-  ];
-  var colors = [
-      1.0, 0.0, 0.0, 1.0,
-      0.0, 1.0, 0.0, 1.0,
-      0.0, 0.0, 1.0, 1.0
-  ]
-
-  var colorRed = [
-      1.0, 0.0, 0.0, 1.0,
-      1.0, 0.0, 0.0, 1.0,
-      1.0, 0.0, 0.0, 1.0
-  ]
-
-  // primeiro triangulo
-  triangle1VertexPositionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, triangle1VertexPositionBuffer);
-
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-  triangle1VertexPositionBuffer.itemSize = 3;
-  triangle1VertexPositionBuffer.numItems = 3;
-
-  triangle1VertexColorBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, triangle1VertexColorBuffer);
-  ;
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-  triangle1VertexColorBuffer.itemSize = 4;
-  triangle1VertexColorBuffer.numItems = 3;
-
-  // segundo triangulo
-  triangle2VertexPositionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, triangle2VertexPositionBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-  triangle2VertexPositionBuffer.itemSize = 3;
-  triangle2VertexPositionBuffer.numItems = 3;
-
-  triangle2VertexColorBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, triangle2VertexColorBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colorRed), gl.STATIC_DRAW);
-  triangle2VertexColorBuffer.itemSize = 4;
-  triangle2VertexColorBuffer.numItems = 3;
-
   linesVertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(linesVertexes)), gl.DYNAMIC_DRAW);
@@ -346,20 +301,6 @@ function updateAnimation() {
       rTri += (90 * elapsed) / 1000.0;
 
       gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
-
-      // v = vec2.create();
-      // vec2.random(v, 2);
-      // linesVertexes.push(v);
-      // gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
-      // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(linesVertexes)), gl.DYNAMIC_DRAW);
-      // linesVertexBuffer.numItems = linesVertexes.length;
-
-      // v = vec3.create();
-      // vec3.random(v);
-      // linesColors.push(vec3.fromValues(1,1,1));
-      // gl.bindBuffer(gl.ARRAY_BUFFER, linesColorBuffer);
-      // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(linesColors)), gl.DYNAMIC_DRAW);
-      // linesColorBuffer.numItems = linesColors.length;
   }
   lastTime = timeNow;
 }
