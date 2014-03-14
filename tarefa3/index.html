@@ -57,8 +57,10 @@
     var ConfigProperties = function() {
       this.subdivision = 0;
       this.color = '#f1c40f';
+      this.rotation = true;
       this.sphere = false;
       this.drawGrid = true;
+      this.wireframe = false;
     }
     window.onload = function() {
 
@@ -106,7 +108,14 @@
       controller.onChange(function(value) {
         drawSphere = value;
       });
-      gui.add(config, 'rotation');
+      controller = gui.add(config, 'rotation');
+      controller.onChange(function(value) {
+        rotation = value;
+      });
+      controller = gui.add(config, 'wireframe');
+      controller.onChange(function(value) {
+        wireframe = value;
+      });
     };
 
     </script>

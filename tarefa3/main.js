@@ -143,7 +143,6 @@ function initBuffers() {
 }
 glMatrix.setMatrixArrayType(Array);
 
-// var lineColor = vec3.fromValues(0.1803921568627451, 0.8, 0.44313725490196076);
 var lineColor = vec3.fromValues(0.9450980392156862, 0.7686274509803922, 0.058823529411764705);
 
 function updateCircle() {
@@ -295,9 +294,8 @@ function updateAnimation() {
   if (lastTime != 0) {
       var elapsed = timeNow - lastTime;
 
-      rTri += (90 * elapsed) / 1000.0;
-
-      gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
+      if (drawSphere && rotation)
+        rTri += (90 * elapsed) / 1000.0;
   }
   lastTime = timeNow;
 }
@@ -360,7 +358,13 @@ function render() {
     gl.bindBuffer(gl.ARRAY_BUFFER, cubeColorBuffer);
     gl.vertexAttribPointer(currentProgram.vertexColorAttribute, cubeColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-    gl.drawArrays(gl.TRIANGLES, 0, cubeVertexBuffer.numItems);
+    mat4.rotate(mvMatrix, mvMatrix, degToRad(rTri), vec3.fromValues(1, 1, 1));
+    setMatrixUniforms();
+
+    if (wireframe)
+      gl.drawArrays(gl.LINE_STRIP, 0, cubeVertexBuffer.numItems);
+    else
+      gl.drawArrays(gl.TRIANGLES, 0, cubeVertexBuffer.numItems);
   }
 }
 

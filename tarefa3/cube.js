@@ -22,12 +22,14 @@ var cubeVertexBuffer, cubeColorBuffer;
 var cube = _.flatten(cube_template);
 var cubeColors = [];
 
+var rotation = true, wireframe = false;
+
 function initCubeBuffers() {
   cubeVertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(cube)), gl.DYNAMIC_DRAW);
   cubeVertexBuffer.itemSize = 3;
-  cubeVertexBuffer.numItems = 4;
+  cubeVertexBuffer.numItems = cube.length/3;
 
   for (i = 0; i < cube.length; i++) cubeColors.push(lineColor);
 
