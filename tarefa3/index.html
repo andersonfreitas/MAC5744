@@ -56,6 +56,7 @@
     <script type="text/javascript">
     var ConfigProperties = function() {
       this.subdivision = 0;
+      this.color = '#f1c40f';
     }
     window.onload = function() {
 
@@ -68,14 +69,22 @@
 
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16)
+          r: map(parseInt(result[1], 16), 0, 255, 0, 1),
+          g: map(parseInt(result[2], 16), 0, 255, 0, 1),
+          b: map(parseInt(result[3], 16), 0, 255, 0, 1)
         } : null;
       }
 
       var config = new ConfigProperties();
       var gui = new dat.GUI();
+      controller = gui.addColor(config, 'color');
+      controller.onChange(function(newColor) {
+        color = hexToRgb(newColor);
+        console.log(color);
+        lineColor = vec3.fromValues(color.r, color.g, color.b);
+        updateCircle();
+      });
+
       controller = gui.add(config, 'subdivision', 0, 5).step(1);
       controller.onFinishChange(function(newLevel) {
         circle = [];

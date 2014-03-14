@@ -87,7 +87,7 @@ function init() {
 
   initShaderVars();
   initBuffers();
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  gl.clearColor(0.17254901960784313, 0.24313725490196078, 0.3137254901960784, 1.0);
   gl.enable(gl.DEPTH_TEST);
 }
 
@@ -120,7 +120,7 @@ function initBuffers() {
   linesColorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, linesColorBuffer);
 
-  for (i = 0; i< linesVertexes.length; i++) linesColors.push(vec3.fromValues(1,1,1));
+  for (i = 0; i< linesVertexes.length; i++) linesColors.push(vec3.fromValues(0.7411764705882353, 0.7647058823529411, 0.7803921568627451));
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(linesColors)), gl.STATIC_DRAW);
   linesColorBuffer.itemSize = 3;
   linesColorBuffer.numItems = linesColors.length;
@@ -134,12 +134,15 @@ function initBuffers() {
   circleColorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, circleColorBuffer);
 
-  for (i = 0; i< circle.length; i++) circleColors.push(vec3.fromValues(1,0,1));
+  for (i = 0; i< circle.length; i++) circleColors.push(lineColor);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(circleColors)), gl.DYNAMIC_DRAW);
   circleColorBuffer.itemSize = 3;
   circleColorBuffer.numItems = circleColors.length;
 }
 glMatrix.setMatrixArrayType(Array);
+
+// var lineColor = vec3.fromValues(0.1803921568627451, 0.8, 0.44313725490196076);
+var lineColor = vec3.fromValues(0.9450980392156862, 0.7686274509803922, 0.058823529411764705);
 
 function updateCircle() {
   gl.bindBuffer(gl.ARRAY_BUFFER, circleVertexBuffer);
@@ -147,7 +150,8 @@ function updateCircle() {
   circleVertexBuffer.numItems = circle.length;
 
   gl.bindBuffer(gl.ARRAY_BUFFER, circleColorBuffer);
-  for (i = 0; i< circle.length; i++) circleColors.push(vec3.fromValues(1,0,1));
+  circleColors = [];
+  for (i = 0; i< circle.length; i++) circleColors.push(lineColor);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(circleColors)), gl.DYNAMIC_DRAW);
   circleColorBuffer.numItems = circleColors.length;
 }
@@ -203,6 +207,10 @@ for (var i = 0; i < circle_template.length; i+=2) {
   a = circle_template[i];
   b = circle_template[i+1];
   subdivide(a, b, 0);
+}
+
+function map(value, start1, stop1, start2, stop2) {
+  return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
 }
 
 function mix( u, v, s )
