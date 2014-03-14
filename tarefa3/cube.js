@@ -1,3 +1,4 @@
+glMatrix.setMatrixArrayType(Array);
 
 var cube_template = [
   // frente cima
@@ -8,9 +9,13 @@ var cube_template = [
   vec3.fromValues(-1,  0, 0), vec3.fromValues( 0, -1, 0), vec3.fromValues( 0,  0, -1),
   vec3.fromValues( 0, -1, 0), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  0, -1),
 
-  // vec3.fromValues( 0,  1, 0), vec3.fromValues( 1,  0, 0),
-  // vec3.fromValues( 1,  0, 0), vec3.fromValues( 0, -1, 0),
-  // vec3.fromValues( 0, -1, 0), vec3.fromValues(-1,  0, 0)
+  // traseira cima
+  vec3.fromValues(-1,  0, 0), vec3.fromValues( 0,  1, 0), vec3.fromValues( 0,  0,  1),
+  vec3.fromValues( 0,  1, 0), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  0,  1),
+
+  // traseira baixo
+  vec3.fromValues(-1,  0, 0), vec3.fromValues( 0, -1, 0), vec3.fromValues( 0,  0,  1),
+  vec3.fromValues( 0, -1, 0), vec3.fromValues( 1,  0, 0), vec3.fromValues( 0,  0,  1)
 ];
 
 var cubeVertexBuffer, cubeColorBuffer;
