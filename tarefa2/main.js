@@ -115,9 +115,9 @@ function initShaderVars() {
 
 function initBuffers() {
   var vertices = [
-       0.0,  1.0,  0.0,
-      -1.0, -1.0,  0.0,
-       1.0, -1.0,  0.0
+       0.0,  0.866,  0.0,
+      -1.0,   -1.0,  0.0,
+       1.0,   -1.0,  0.0
   ];
   var colors = [
       1.0, 0.0, 0.0, 1.0,
