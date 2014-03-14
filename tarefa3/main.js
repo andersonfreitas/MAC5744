@@ -321,7 +321,7 @@ function animate() {
 }
 
 var drawGrid = true;
-var drawSphere = false;
+var drawSphere = true;
 
 function render() {
 
@@ -374,7 +374,7 @@ function render() {
     setMatrixUniforms();
 
     if (wireframe)
-      gl.drawArrays(gl.LINE_STRIP, 0, cubeVertexBuffer.numItems);
+      gl.drawArrays(gl.LINES, 0, cubeVertexBuffer.numItems);
     else
       gl.drawArrays(gl.TRIANGLES, 0, cubeVertexBuffer.numItems);
   }
