@@ -7,7 +7,25 @@ Faça um programa em WebGL para simular a movimentação de uma bandeira ao vent
   - Use a equação abaixo para a sua movimentação:
 
   ![\LARGE y\left(x,t\right)=A\sin \left( { \frac {2\pi}{\lambda} } \left( x-vt \right) \right)](equation.png)
+
+
   ![amplitude](amplitude.png)
 
   - Use o vertex shader para transladar os vértices dos triângulos componentes da superfície no eixo y.
   - Qual o vetor normal correspondente à função acima?
+
+## To do list
+
+  - Criar uma função que desenhe um retângulo NxM com uma resolução X de quads (ou um fator de subdivisão)
+
+  - Mapear uma textura (bandeira do Brasil)
+
+  - Movimentar cada um dos vertices usando a equação dada
+
+  - Usar dat.gui para controlar parâmetros
+    - Resolução de Quads
+    - Direção do vento
+    - Força do vento
+
+  - Acrescentar uma forma de simular gravidade (com um *shear* no eixo Y)
+
