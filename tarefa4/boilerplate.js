@@ -193,21 +193,3 @@ function onWindowResize( event ) {
   gl.viewportWidth = canvas.width;
   gl.viewportHeight = canvas.height;
 }
-
-var ConfigProperties = function() {
-  this.drawGrid = true;
-  this.wireframe = true;
-}
-window.onload = function() {
-  var config = new ConfigProperties();
-  var gui = new dat.GUI();
-
-  controller = gui.add(config, 'drawGrid');
-  controller.onFinishChange(function(value) {
-    drawGrid = value;
-  });
-  controller = gui.add(config, 'wireframe');
-  controller.onChange(function(value) {
-    wireframe = value;
-  });
-};

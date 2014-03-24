@@ -1,5 +1,27 @@
+var ConfigProperties = function() {
+  this.drawGrid = true;
+  this.wireframe = true;
+  this.subdivision = 1;
+}
+window.onload = function() {
+  var config = new ConfigProperties();
+  var gui = new dat.GUI();
 
-var linesVertexes = [
+  controller = gui.add(config, 'drawGrid');
+  controller.onFinishChange(function(value) {
+    drawGrid = value;
+  });
+  controller = gui.add(config, 'wireframe');
+  controller.onChange(function(value) {
+    wireframe = value;
+  });
+  controller = gui.add(config, 'subdivision', 1, 50).step(1);
+  controller.onFinishChange(function(newLevel) {
+    subdivide(a, b, newLevel);
+  });
+};
+
+var gridVertexes = [
   vec2.fromValues(-1, 0),
   vec2.fromValues(1, 0),
   vec2.fromValues(0, 1),
