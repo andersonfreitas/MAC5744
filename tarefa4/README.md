@@ -13,3 +13,4 @@ $$
 
   - Use o vertex shader para transladar os vértices dos triângulos componentes da superfície no eixo y.
   - Qual o vetor normal correspondente à função acima?
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
