@@ -36,23 +36,27 @@ var gridVertexes = [
   vec2.fromValues(-1, 1)
 ];
 
-var linesVertexBuffer, linesColorBuffer;
+var gridVertexBuffer, gridColorBuffer;
 
 function initBuffers() {
-  linesVertexBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(linesVertexes)), gl.STATIC_DRAW);
-  linesVertexBuffer.itemSize = 2;
-  linesVertexBuffer.numItems = linesVertexes.length;
+  // World grid
+  gridVertexBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, gridVertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(gridVertexes)), gl.STATIC_DRAW);
+  gridVertexBuffer.itemSize = 2;
+  gridVertexBuffer.numItems = gridVertexes.length;
 
-  linesColorBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, linesColorBuffer);
+  gridColorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, gridColorBuffer);
 
   var linesColors = [];
-  for (i = 0; i< linesVertexes.length; i++) linesColors.push(vec3.fromValues(0.7411764705882353, 0.7647058823529411, 0.7803921568627451));
+  for (i = 0; i< gridVertexes.length; i++) linesColors.push(vec3.fromValues(0.7411764705882353, 0.7647058823529411, 0.7803921568627451));
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(linesColors)), gl.STATIC_DRAW);
-  linesColorBuffer.itemSize = 3;
-  linesColorBuffer.numItems = linesColors.length;
+  gridColorBuffer.itemSize = 3;
+  gridColorBuffer.numItems = linesColors.length;
+
+  // Bandeira
+
 }
 
 function render() {
@@ -75,14 +79,14 @@ function render() {
   setMatrixUniforms();
 
   if (drawGrid) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, linesVertexBuffer);
-    gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, linesVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gridVertexBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, gridVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, linesColorBuffer);
-    gl.vertexAttribPointer(currentProgram.vertexColorAttribute, linesColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gridColorBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexColorAttribute, gridColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.lineWidth(1);
-    gl.drawArrays(gl.LINES, 0, linesVertexBuffer.numItems);
+    gl.drawArrays(gl.LINES, 0, gridVertexBuffer.numItems);
   }
 }
 
