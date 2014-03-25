@@ -5,7 +5,7 @@ var lambda = 1.0;
 
 var ConfigProperties = function() {
   this.wireframe = true;
-  this.subdivision = 4;
+  this.subdivision = 5;
   this.A = A;
   this.v = v;
   this.lambda = lambda;
