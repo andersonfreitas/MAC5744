@@ -1,8 +1,14 @@
 var wireframe = true;
+var A = 0.15;
+var v = 1.0;
+var lambda = 1.0;
 
 var ConfigProperties = function() {
   this.wireframe = true;
   this.subdivision = 4;
+  this.A = A;
+  this.v = v;
+  this.lambda = lambda;
 }
 window.onload = function() {
   var config = new ConfigProperties();
@@ -16,6 +22,22 @@ window.onload = function() {
   controller.onChange(function(newLevel) {
     subdivide(newLevel);
     initBuffers();
+  });
+
+  controller = gui.add(config, 'A', 0.0, 0.5);
+  controller.onChange(function(value) {
+    A = value;
+    gl.uniform1f(gl.getUniformLocation(currentProgram, 'A'), A);
+  });
+  controller = gui.add(config, 'v', 0.0, 2.0);
+  controller.onChange(function(value) {
+    v = value;
+    gl.uniform1f(gl.getUniformLocation(currentProgram, 'v'), v);
+  });
+  controller = gui.add(config, 'lambda', 0.0, 2.0);
+  controller.onChange(function(value) {
+    lambda = value;
+    gl.uniform1f(gl.getUniformLocation(currentProgram, 'lambda'), lambda);
   });
 };
 
@@ -75,7 +97,7 @@ function divideTriangle(a, b, c, count) {
   }
 }
 
-subdivide(4);
+subdivide(5);
 
 function initBuffers() {
   // Bandeira
@@ -105,6 +127,11 @@ function initBuffers() {
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(flagColors)), gl.STATIC_DRAW);
   flagColorBuffer.itemSize = 3;
   flagColorBuffer.numItems = flagColors.length;
+
+  gl.useProgram(currentProgram);
+  gl.uniform1f(gl.getUniformLocation(currentProgram, 'A'), A);
+  gl.uniform1f(gl.getUniformLocation(currentProgram, 'v'), v);
+  gl.uniform1f(gl.getUniformLocation(currentProgram, 'lambda'), lambda);
 }
 
 function render() {
