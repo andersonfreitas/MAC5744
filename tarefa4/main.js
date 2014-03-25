@@ -24,25 +24,6 @@ window.onload = function() {
   });
 };
 
-var gridVertexBuffer, gridColorBuffer;
-var gridVertexes = [
-  vec2.fromValues(-1, 0),
-  vec2.fromValues(1, 0),
-  vec2.fromValues(0, 1),
-
-  vec2.fromValues(0, -1),
-  vec2.fromValues(-1, 1),
-  vec2.fromValues(1, 1),
-
-  vec2.fromValues(1, 1),
-  vec2.fromValues(1, -1),
-  vec2.fromValues(1, -1),
-
-  vec2.fromValues(-1, -1),
-  vec2.fromValues(-1, -1),
-  vec2.fromValues(-1, 1)
-];
-
 var flagVertexBuffer, flagColorBuffer, flagIndexBuffer, flagNormalBuffer;
 var flagVertexes = [
   vec2.fromValues(-1,  1), // a
@@ -57,22 +38,6 @@ var flagIndices = [
 ]
 
 function initBuffers() {
-  // World grid
-  gridVertexBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, gridVertexBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(gridVertexes)), gl.STATIC_DRAW);
-  gridVertexBuffer.itemSize = 2;
-  gridVertexBuffer.numItems = gridVertexes.length;
-
-  gridColorBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, gridColorBuffer);
-
-  var linesColors = [];
-  for (i = 0; i< gridVertexes.length; i++) linesColors.push(vec3.fromValues(0.7411764705882353, 0.7647058823529411, 0.7803921568627451));
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(linesColors)), gl.STATIC_DRAW);
-  gridColorBuffer.itemSize = 3;
-  gridColorBuffer.numItems = linesColors.length;
-
   // Bandeira
   flagVertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, flagVertexBuffer);
@@ -119,17 +84,6 @@ function render() {
   mat4.translate(mvMatrix, mvMatrix, vec3.fromValues(0, 0, -3));
 
   setMatrixUniforms();
-
-  if (drawGrid) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, gridVertexBuffer);
-    gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, gridVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, gridColorBuffer);
-    gl.vertexAttribPointer(currentProgram.vertexColorAttribute, gridColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-    gl.lineWidth(1);
-    gl.drawArrays(gl.LINES, 0, gridVertexBuffer.numItems);
-  }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, flagVertexBuffer);
   gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, flagVertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
