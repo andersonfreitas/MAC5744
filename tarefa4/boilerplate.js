@@ -100,6 +100,9 @@ function initShaderVars() {
   currentProgram.vertexColorAttribute = gl.getAttribLocation(currentProgram, "aVertexColor");
   gl.enableVertexAttribArray(currentProgram.vertexColorAttribute);
 
+  // currentProgram.vertexNormalAttribute = gl.getAttribLocation(currentProgram, "aVertexNormal");
+  // gl.enableVertexAttribArray(currentProgram.vertexNormalAttribute);
+
   currentProgram.pMatrixUniform = gl.getUniformLocation(currentProgram, "uPMatrix");
   currentProgram.mvMatrixUniform = gl.getUniformLocation(currentProgram, "uMVMatrix");
 

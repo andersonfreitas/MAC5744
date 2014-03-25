@@ -60,6 +60,13 @@ function initBuffers() {
 
   // Bandeira
 
+  // var flagNormals = [];
+  // for (i = 0; i< flagVertexes.length; i++) flagNormals.push(vec3.fromValues(0.0, 0.0, 1.0));
+  // flagNormalBuffer = gl.createBuffer();
+  // gl.bindBuffer(gl.ARRAY_BUFFER, flagNormalBuffer);
+  // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(flagNormals)), gl.STATIC_DRAW);
+  // flagNormalBuffer.itemSize = 3;
+  // flagNormalBuffer.numItems = flagNormals.length;
 }
 
 function render() {
@@ -91,6 +98,8 @@ function render() {
     gl.lineWidth(1);
     gl.drawArrays(gl.LINES, 0, gridVertexBuffer.numItems);
   }
+  // gl.bindBuffer(gl.ARRAY_BUFFER, flagNormalBuffer);
+  // gl.vertexAttribPointer(currentProgram.vertexNormalAttribute, flagNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
 }
 
 function updateAnimation() {
