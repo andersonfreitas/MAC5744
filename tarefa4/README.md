@@ -6,10 +6,9 @@ Link [http://andersonfreitas.com/MAC5744/tarefa4/](http://andersonfreitas.com/MA
 Faça um programa em WebGL para simular a movimentação de uma bandeira ao vento:
 
   - Desenhe a bandeira (uma superfície planar em x-z) através de uma série de triângulos adjacentes
-  - Use a equação abaixo para a sua movimentação:
+  - Use a equação abaixo para a sua movimentação (em funcão de z):
 
-  ![\LARGE y\left(x,t\right)=A\sin \left( { \frac {2\pi}{\lambda} } \left( x-vt \right) \right)](equation.png)
-
+  ![\LARGE z\left(x,t\right)=A\sin \left( { \frac {2\pi}{\lambda} } \left( x-vt \right) \right)](http://latex.codecogs.com/gif.latex?\LARGE&space;\LARGE&space;z\left(x,t\right)=A\sin&space;\left(&space;{&space;\frac&space;{2\pi}{\lambda}&space;}&space;\left(&space;x-vt&space;\right)&space;\right))
 
   ![amplitude](amplitude.png)
 
