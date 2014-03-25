@@ -29,8 +29,6 @@ glMatrix.setMatrixArrayType(Array);
 var mvMatrix = mat4.create();
 var mvMatrixStack = [];
 var pMatrix = mat4.create();
-
-var drawGrid = true;
 var lastTime = 0;
 var rTri = 0;
 var u_DiffuseLight;

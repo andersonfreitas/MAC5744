@@ -1,6 +1,9 @@
+var drawGrid = true;
+var wireframe = false;
+
 var ConfigProperties = function() {
   this.drawGrid = true;
-  this.wireframe = true;
+  this.wireframe = false;
   this.subdivision = 1;
 }
 window.onload = function() {
@@ -15,7 +18,7 @@ window.onload = function() {
   controller.onChange(function(value) {
     wireframe = value;
   });
-  controller = gui.add(config, 'subdivision', 1, 50).step(1);
+  controller = gui.add(config, 'subdivision', 1, 10).step(1);
   controller.onFinishChange(function(newLevel) {
     subdivide(a, b, newLevel);
   });
