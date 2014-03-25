@@ -1,45 +1,85 @@
-var drawGrid = true;
-var wireframe = false;
+var wireframe = true;
 
 var ConfigProperties = function() {
-  this.drawGrid = true;
-  this.wireframe = false;
-  this.subdivision = 1;
+  this.wireframe = true;
+  this.subdivision = 4;
 }
 window.onload = function() {
   var config = new ConfigProperties();
   var gui = new dat.GUI();
 
-  controller = gui.add(config, 'drawGrid');
-  controller.onFinishChange(function(value) {
-    drawGrid = value;
-  });
   controller = gui.add(config, 'wireframe');
   controller.onChange(function(value) {
     wireframe = value;
   });
-  controller = gui.add(config, 'subdivision', 1, 10).step(1);
-  controller.onFinishChange(function(newLevel) {
-    subdivide(a, b, newLevel);
+  controller = gui.add(config, 'subdivision', 0, 6).step(1);
+  controller.onChange(function(newLevel) {
+    subdivide(newLevel);
+    initBuffers();
   });
 };
 
 var flagVertexBuffer, flagColorBuffer, flagIndexBuffer, flagNormalBuffer;
-var flagVertexes = [
+var BASE_MESH = [
   vec2.fromValues(-1,  1), // a
-  vec2.fromValues(-1, -1), // b
+  vec2.fromValues(-1, -0.5), // b
   vec2.fromValues( 1,  1), // c
-  vec2.fromValues( 1, -1)  // d
+  vec2.fromValues( 1, -0.5)  // d
 ]
 
-var flagIndices = [
+var flagVertexes = BASE_MESH;
+
+var BASE_INDICES = [
   0, 1, 2,
   1, 3, 2
-]
+];
+
+var flagIndices = BASE_INDICES;
+
+function subdivide(level) {
+  flagVertexes = [];
+  flagIndices = [];
+  for (var i = 0; i < BASE_INDICES.length; i += 3) {
+    var a = BASE_MESH[BASE_INDICES[i+0]];
+    var b = BASE_MESH[BASE_INDICES[i+1]];
+    var c = BASE_MESH[BASE_INDICES[i+2]];
+
+    divideTriangle(a, b, c, level);
+  }
+}
+
+function triangle(a, b, c) {
+  flagVertexes.push(a, b);
+  flagVertexes.push(b, c);
+  flagVertexes.push(a, c);
+  // flagVertexes.push(a, b, c);
+  // flagIndices.push(a);
+  // flagIndices.push(b);
+  // flagIndices.push(c);
+}
+
+function divideTriangle(a, b, c, count) {
+  if ( count === 0 ) {
+    triangle( a, b, c );
+  } else {
+    var ab = mix(a, b, 0.5);
+    var ac = mix(a, c, 0.5);
+    var bc = mix(b, c, 0.5);
+
+    --count;
+
+    divideTriangle( a, ac, ab, count);
+    divideTriangle( c, bc, ac, count);
+    divideTriangle( b, ab, bc, count);
+    divideTriangle(ab, ac, bc, count);
+  }
+}
+
+subdivide(4);
 
 function initBuffers() {
   // Bandeira
-  flagVertexBuffer = gl.createBuffer();
+  if (flagVertexBuffer == undefined ) flagVertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, flagVertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(flagVertexes)), gl.STATIC_DRAW);
   flagVertexBuffer.itemSize = 2;
@@ -59,7 +99,8 @@ function initBuffers() {
 
   var flagColors = [];
   for (i = 0; i< flagVertexes.length; i++) flagColors.push(vec3.fromValues(0, 0.7647058823529411, 0));
-  flagColorBuffer = gl.createBuffer();
+
+  if (flagColorBuffer == undefined ) flagColorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, flagColorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(_.flatten(flagColors)), gl.STATIC_DRAW);
   flagColorBuffer.itemSize = 3;
@@ -95,9 +136,11 @@ function render() {
   gl.vertexAttribPointer(currentProgram.vertexColorAttribute, flagColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
   if (wireframe)
-    gl.drawElements(gl.LINES, flagIndices.length, gl.UNSIGNED_BYTE, 0);
+    // gl.drawElements(gl.LINE_LOOP, flagIndices.length, gl.UNSIGNED_BYTE, 0);
+    gl.drawArrays(gl.LINES, 0, flagVertexBuffer.numItems);
   else
-    gl.drawElements(gl.TRIANGLES, flagIndices.length, gl.UNSIGNED_BYTE, 0);
+    // gl.drawElements(gl.TRIANGLES, flagIndices.length, gl.UNSIGNED_BYTE, 0);
+    gl.drawArrays(gl.TRIANGLES, 0, flagVertexBuffer.numItems);
 }
 
 function updateAnimation() {
