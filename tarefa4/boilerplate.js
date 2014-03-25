@@ -125,7 +125,7 @@ function map(value, start1, stop1, start2, stop2) {
 
 function mix( u, v, s ) {
   if ( typeof s !== "number" ) {
-    throw "mix: the last paramter " + s + " must be a number";
+    throw "mix: the last parameter " + s + " must be a number";
   }
   if ( u.length != v.length ) {
     throw "vector dimension mismatch";
